@@ -13,13 +13,13 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 
 RUN chown -R ${PHPUSER}:${PHPUSER} /var/www/html
-
+#For localhost
 RUN chmod -R 777 /var/www/html
 
 RUN apk add curl
 
 RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
-      \@composer-2.7.1 pdo_pgsql intl zip
+      \@composer-2.7.1 pdo_pgsql intl zip gd bcmath
 
 EXPOSE 9000
 
