@@ -13,11 +13,8 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 
 RUN chown -R ${PHPUSER}:${PHPUSER} /var/www/html
-#For localhost
-RUN chmod -R 777 /var/www/html
 
-#For server
-# RUN chmod -R 755 /var/www/html
+RUN chmod -R 777 /var/www/html
 
 RUN apk add curl
 
