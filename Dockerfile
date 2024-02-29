@@ -1,7 +1,7 @@
 FROM php:fpm-alpine3.18
 
-ENV PHPGROUP=miguelmateo
-ENV PHPUSER=miguelmateo
+ENV PHPGROUP=1000
+ENV PHPUSER=1000
 
 RUN adduser -g ${PHPGROUP} -s /bin/sh -D ${PHPUSER}
 
@@ -13,12 +13,16 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 
 RUN chown -R ${PHPUSER}:${PHPUSER} /var/www/html
-RUN chmod -R 755 /var/www/html
+#For localhost
+RUN chmod -R 777 /var/www/html
+
+#For server
+# RUN chmod -R 755 /var/www/html
 
 RUN apk add curl
 
 RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
-      \pdo_pgsql @composer-2.7.1
+      \@composer-2.7.1 pdo_pgsql intl zip
 
 EXPOSE 9000
 
